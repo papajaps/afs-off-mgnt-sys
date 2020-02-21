@@ -42,9 +42,6 @@ namespace AFSOfficeManagementSystem
             dataGridView2.Width = pnlDashboard.Width/(2) + 100;
         }
 
-
-        //Accounts CMS start
-
         private void dataGridView5_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
         {
             if (e.RowIndex != -1)
@@ -134,21 +131,19 @@ namespace AFSOfficeManagementSystem
                 MessageBox.Show(ex.ToString());
             }
         }
-        //Accounts CMS end
 
-        //branch CMS start
         private void dataGridView7_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
         {
             if (e.RowIndex != -1)
             {
                 if (e.Button == MouseButtons.Right)
                 {
-                    branch_id = dataGridView7.Rows[e.RowIndex].Cells[0].FormattedValue.ToString();
+                    branch_id = tblBranch.Rows[e.RowIndex].Cells[0].FormattedValue.ToString();
                     int rowSelected = e.RowIndex;
                     if (e.RowIndex != -1)
                     {
-                        dataGridView7.ClearSelection();
-                        dataGridView7.Rows[rowSelected].Selected = true;
+                        tblBranch.ClearSelection();
+                        tblBranch.Rows[rowSelected].Selected = true;
                     }
                 }
             }
@@ -166,9 +161,9 @@ namespace AFSOfficeManagementSystem
                                      MessageBoxButtons.YesNo);
             if (confirmResult == DialogResult.Yes)
             {
-                Int32 rowToDelete = dataGridView7.Rows.GetFirstRow(DataGridViewElementStates.Selected);
-                dataGridView7.Rows.RemoveAt(rowToDelete);
-                dataGridView7.ClearSelection();
+                Int32 rowToDelete = tblBranch.Rows.GetFirstRow(DataGridViewElementStates.Selected);
+                tblBranch.Rows.RemoveAt(rowToDelete);
+                tblBranch.ClearSelection();
                 string qry = string.Format("UPDATE branch set is_deleted = 1 where branch_id = '" + branch_id + "';");
                 sqlquery.ExecuteQueries(qry);
                 sqlquery.CloseConnection();
@@ -191,22 +186,22 @@ namespace AFSOfficeManagementSystem
                 int StartRow = 1;
                 int j = 0, i = 0;
 
-                for (j = 0; j < dataGridView7.Columns.Count; j++)
+                for (j = 0; j < tblBranch.Columns.Count; j++)
                 {
                     Microsoft.Office.Interop.Excel.Range myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[StartRow, StartCol + j];
-                    myRange.Value2 = dataGridView7.Columns[j].HeaderText;
+                    myRange.Value2 = tblBranch.Columns[j].HeaderText;
                 }
 
                 StartRow++;
 
-                for (i = 0; i < dataGridView7.Rows.Count; i++)
+                for (i = 0; i < tblBranch.Rows.Count; i++)
                 {
-                    for (j = 0; j < dataGridView7.Columns.Count; j++)
+                    for (j = 0; j < tblBranch.Columns.Count; j++)
                     {
                         try
                         {
                             Microsoft.Office.Interop.Excel.Range myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[StartRow + i, StartCol + j];
-                            myRange.Value2 = dataGridView7[j, i].Value == null ? "" : dataGridView7[j, i].Value;
+                            myRange.Value2 = tblBranch[j, i].Value == null ? "" : tblBranch[j, i].Value;
                         }
                         catch
                         {
@@ -220,21 +215,19 @@ namespace AFSOfficeManagementSystem
                 MessageBox.Show(ex.ToString());
             }
         }
-        //branch CMS end
 
-        //supplier cms start
         private void dataGridView8_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
         {
             if (e.RowIndex != -1)
             {
                 if (e.Button == MouseButtons.Right)
                 {
-                    supp_id = dataGridView8.Rows[e.RowIndex].Cells[0].FormattedValue.ToString();
+                    supp_id = tblSupplier.Rows[e.RowIndex].Cells[0].FormattedValue.ToString();
                     int rowSelected = e.RowIndex;
                     if (e.RowIndex != -1)
                     {
-                        dataGridView8.ClearSelection();
-                        dataGridView8.Rows[rowSelected].Selected = true;
+                        tblSupplier.ClearSelection();
+                        tblSupplier.Rows[rowSelected].Selected = true;
                     }
                 }
             }
@@ -253,18 +246,13 @@ namespace AFSOfficeManagementSystem
                                         MessageBoxButtons.YesNo);
             if (confirmResult == DialogResult.Yes)
             {
-                Int32 rowToDelete = dataGridView8.Rows.GetFirstRow(DataGridViewElementStates.Selected);
-                dataGridView8.Rows.RemoveAt(rowToDelete);
-                dataGridView8.ClearSelection();
+                Int32 rowToDelete = tblSupplier.Rows.GetFirstRow(DataGridViewElementStates.Selected);
+                tblSupplier.Rows.RemoveAt(rowToDelete);
+                tblSupplier.ClearSelection();
                 string qry = string.Format("UPDATE supplier set is_deleted = 1 where supplier_id = '" + supp_id + "';");
                 sqlquery.ExecuteQueries(qry);
                 sqlquery.CloseConnection();
             }
-            else
-            {
-
-            }
-
         }
 
         private void openAsExcelFileToolStripMenuItem1_Click(object sender, EventArgs e)
@@ -279,22 +267,22 @@ namespace AFSOfficeManagementSystem
                 int StartRow = 1;
                 int j = 0, i = 0;
 
-                for (j = 0; j < dataGridView8.Columns.Count; j++)
+                for (j = 0; j < tblSupplier.Columns.Count; j++)
                 {
                     Microsoft.Office.Interop.Excel.Range myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[StartRow, StartCol + j];
-                    myRange.Value2 = dataGridView8.Columns[j].HeaderText;
+                    myRange.Value2 = tblSupplier.Columns[j].HeaderText;
                 }
 
                 StartRow++;
 
-                for (i = 0; i < dataGridView8.Rows.Count; i++)
+                for (i = 0; i < tblSupplier.Rows.Count; i++)
                 {
-                    for (j = 0; j < dataGridView8.Columns.Count; j++)
+                    for (j = 0; j < tblSupplier.Columns.Count; j++)
                     {
                         try
                         {
                             Microsoft.Office.Interop.Excel.Range myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[StartRow + i, StartCol + j];
-                            myRange.Value2 = dataGridView8[j, i].Value == null ? "" : dataGridView8[j, i].Value;
+                            myRange.Value2 = tblSupplier[j, i].Value == null ? "" : tblSupplier[j, i].Value;
                         }
                         catch
                         {
@@ -309,22 +297,18 @@ namespace AFSOfficeManagementSystem
             }
         }
 
-        // supplier cms end
-
-
-        // Employee CMS start
         private void dataGridView6_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
         {
             if (e.RowIndex != -1)
             {
                 if (e.Button == MouseButtons.Right)
                 {
-                    emp_id = dataGridView6.Rows[e.RowIndex].Cells[0].FormattedValue.ToString();
+                    emp_id = tblEmployee.Rows[e.RowIndex].Cells[0].FormattedValue.ToString();
                     int rowSelected = e.RowIndex;
                     if (e.RowIndex != -1)
                     {
-                        dataGridView6.ClearSelection();
-                        dataGridView6.Rows[rowSelected].Selected = true;
+                        tblEmployee.ClearSelection();
+                        tblEmployee.Rows[rowSelected].Selected = true;
                     }
                 }
             }
@@ -342,16 +326,12 @@ namespace AFSOfficeManagementSystem
                                         MessageBoxButtons.YesNo);
             if (confirmResult == DialogResult.Yes)
             {
-                Int32 rowToDelete = dataGridView6.Rows.GetFirstRow(DataGridViewElementStates.Selected);
-                dataGridView6.Rows.RemoveAt(rowToDelete);
-                dataGridView6.ClearSelection();
+                Int32 rowToDelete = tblEmployee.Rows.GetFirstRow(DataGridViewElementStates.Selected);
+                tblEmployee.Rows.RemoveAt(rowToDelete);
+                tblEmployee.ClearSelection();
                 string qry = string.Format("UPDATE employee set is_deleted = 1 where employee_id = '" + emp_id + "';");
                 sqlquery.ExecuteQueries(qry);
                 sqlquery.CloseConnection();
-            }
-            else
-            {
-
             }
         }
 
@@ -367,22 +347,22 @@ namespace AFSOfficeManagementSystem
                 int StartRow = 1;
                 int j = 0, i = 0;
 
-                for (j = 0; j < dataGridView6.Columns.Count; j++)
+                for (j = 0; j < tblEmployee.Columns.Count; j++)
                 {
                     Microsoft.Office.Interop.Excel.Range myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[StartRow, StartCol + j];
-                    myRange.Value2 = dataGridView6.Columns[j].HeaderText;
+                    myRange.Value2 = tblEmployee.Columns[j].HeaderText;
                 }
 
                 StartRow++;
 
-                for (i = 0; i < dataGridView6.Rows.Count; i++)
+                for (i = 0; i < tblEmployee.Rows.Count; i++)
                 {
-                    for (j = 0; j < dataGridView6.Columns.Count; j++)
+                    for (j = 0; j < tblEmployee.Columns.Count; j++)
                     {
                         try
                         {
                             Microsoft.Office.Interop.Excel.Range myRange = (Microsoft.Office.Interop.Excel.Range)sheet1.Cells[StartRow + i, StartCol + j];
-                            myRange.Value2 = dataGridView6[j, i].Value == null ? "" : dataGridView6[j, i].Value;
+                            myRange.Value2 = tblEmployee[j, i].Value == null ? "" : tblEmployee[j, i].Value;
                         }
                         catch
                         {
@@ -397,10 +377,6 @@ namespace AFSOfficeManagementSystem
             }
 
         }
-
-        // Employee CMS end
-
-        //purchase cms start
 
         private void tblPurchaseOrder_CellMouseDown(object sender, DataGridViewCellMouseEventArgs e)
         {
@@ -494,18 +470,17 @@ namespace AFSOfficeManagementSystem
 
             }
         }
-        //purchase cms end
 
         private void Button_MouseHover(object sender, EventArgs e)
         {
             Button button = (Button)sender;
-            button.BackColor = ColorTranslator.FromHtml("#74E39A");
+            button.ForeColor = Color.White;
         }
 
         private void Button_MouseLeave(object sender, EventArgs e)
         {
             Button button = (Button)sender;
-            button.BackColor = ColorTranslator.FromHtml("#3BD16F");
+            button.ForeColor = Color.Silver;
         }
 
         private void Button_Click(object sender, EventArgs e)
@@ -664,9 +639,10 @@ namespace AFSOfficeManagementSystem
             tblPurchaseOrder.DataSource = sqlquery.ShowDataInGridView(@"SELECT
                                                                             p.purchase_id AS 'ID',
                                                                             s.supplier_name AS 'SUPPLIER',
-                                                                            p.purchase_number AS 'PO NUMBER',
+                                                                            p.purchase_number AS 'PO NO.',
                                                                             b.branch_name AS 'BRANCH NAME',
                                                                             p.purchase_order_date AS 'ORDER DATE',
+                                                                            p.purchase_due_date AS 'DUE DATE',
                                                                             p.purchase_stat AS 'STATUS'
                                                                         FROM
                                                                             purchase p
@@ -680,7 +656,7 @@ namespace AFSOfficeManagementSystem
 
         public void loadBranData()
         {
-            dataGridView7.DataSource = sqlquery.ShowDataInGridView(@"SELECT
+            tblBranch.DataSource = sqlquery.ShowDataInGridView(@"SELECT
                                                                         br.branch_id AS 'BRANCH ID',
                                                                         br.branch_name AS 'BRANCH NAME',
                                                                         CONCAT(
@@ -706,7 +682,7 @@ namespace AFSOfficeManagementSystem
         }
         public void loadSuppData()
         {
-            dataGridView8.DataSource = sqlquery.ShowDataInGridView(@"SELECT
+            tblSupplier.DataSource = sqlquery.ShowDataInGridView(@"SELECT
                                                                         supplier_id as 'ID',       
                                                                         supplier_date_added AS 'DATE CREATED',
                                                                         supplier_name AS 'SUPPLIER NAME',
@@ -719,7 +695,7 @@ namespace AFSOfficeManagementSystem
         }
         public void loadVouchData()
         {
-            dataGridView10.DataSource = sqlquery.ShowDataInGridView(@"SELECT
+            tblVoucher.DataSource = sqlquery.ShowDataInGridView(@"SELECT
                                                                         v.voucher_id AS 'ID',
                                                                         s.supplier_name AS 'SUPPLIER',
                                                                         v.voucher_num AS 'VOUCHER NUMBER',
@@ -739,7 +715,7 @@ namespace AFSOfficeManagementSystem
         }
         public void loadEmpData()
         {
-            dataGridView6.DataSource = sqlquery.ShowDataInGridView(@"SELECT
+            tblEmployee.DataSource = sqlquery.ShowDataInGridView(@"SELECT
                                                                         e.employee_id AS 'ID',
                                                                         CONCAT(
                                                                             e.employee_fname,
@@ -870,8 +846,8 @@ namespace AFSOfficeManagementSystem
                 var rel_mousePos = cms.PointToClient(mousepos);
                 if (cms.ClientRectangle.Contains(rel_mousePos))
                 {
-                    var dgv_rel_mousePos = dataGridView7.PointToClient(mousepos);
-                    var hti = dataGridView7.HitTest(dgv_rel_mousePos.X, dgv_rel_mousePos.Y);
+                    var dgv_rel_mousePos = tblBranch.PointToClient(mousepos);
+                    var hti = tblBranch.HitTest(dgv_rel_mousePos.X, dgv_rel_mousePos.Y);
                     if (hti.RowIndex == -1)
                     {
                         e.Cancel = true;
@@ -893,8 +869,8 @@ namespace AFSOfficeManagementSystem
                 var rel_mousePos = cms.PointToClient(mousepos);
                 if (cms.ClientRectangle.Contains(rel_mousePos))
                 {
-                    var dgv_rel_mousePos = dataGridView8.PointToClient(mousepos);
-                    var hti = dataGridView8.HitTest(dgv_rel_mousePos.X, dgv_rel_mousePos.Y);
+                    var dgv_rel_mousePos = tblSupplier.PointToClient(mousepos);
+                    var hti = tblSupplier.HitTest(dgv_rel_mousePos.X, dgv_rel_mousePos.Y);
                     if (hti.RowIndex == -1)
                     {
                         e.Cancel = true;
@@ -965,10 +941,16 @@ namespace AFSOfficeManagementSystem
             if (table.Name == "tblPurchaseOrder")
             {
                 table.ColumnHeadersDefaultCellStyle.Font = new Font(table.Font, FontStyle.Bold);
+                table.Columns[0].Width = 80;
+                table.Columns[1].Width = 250;
+                table.Columns[2].Width = 80;
+                table.Columns[3].Width = 250;
+                table.Columns[4].Width = 100;
+                table.Columns[5].Width = 100;
+                table.Columns[6].Width = 80;
+                table.Columns[0].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 foreach (DataGridViewRow row in table.Rows)
                 {
-                    row.DefaultCellStyle.BackColor = Color.FromArgb(42, 222, 114);
-
                     if (Convert.ToString(row.Cells["STATUS"].Value) == "Paid")
                     {
                         row.DefaultCellStyle.BackColor = Color.LightGreen;
