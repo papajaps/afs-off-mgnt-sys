@@ -519,48 +519,40 @@ namespace AFSOfficeManagementSystem
             }
             else if (button.Name == "btnAccounts")
             {
-                lblHeader.Text = "ACCOUNTS";
                 panel = pnlAccounts;
                 loadAccData();
             }
             else if (button.Name == "btnExpenses")
             {
-                lblHeader.Text = "EXPENSES";
                 panel = pnlExpenses;
                 loadExpenses();
             }
             else if (button.Name == "btnSupplier")
             {
-                lblHeader.Text = "SUPPLIER";
                 panel = pnlSupplier;
                 loadSuppData();
             }
             else if (button.Name == "btnPurchOrder")
             {
-                lblHeader.Text = "PURCHASE ORDER";
                 panel = pnlPurchOrder;
                 loadPurchData();
             }
             else if (button.Name == "btnVoucher")
             {
-                lblHeader.Text = "VOUCHER";
                 panel = pnlVoucher;
                 loadVouchData();
             }
             else if (button.Name == "btnAccounting")
             {
-                lblHeader.Text = "ACCOUNTING";
                 panel = pnlAccounting;
             }
             else if (button.Name == "btnEmployee")
             {
-                lblHeader.Text = "EMPLOYEE";
                 panel = pnlEmployee;
                 loadEmpData();
             }
             else if (button.Name == "btnBranches")
             {
-                lblHeader.Text = "BRANCHES";
                 panel = pnlBranches;
                 loadBranData();
             }
@@ -574,13 +566,13 @@ namespace AFSOfficeManagementSystem
                 btn.BackColor = Color.White;
                 btn.Font = new Font("MS Reference Sans Serif", 9, FontStyle.Regular);
             }
+            lblHeader.Text = button.Text;
             button.BackColor = Color.Gainsboro;
             button.Font = new Font("MS Reference Sans Serif", 9, FontStyle.Bold);
         }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-            btnDashboard.BackColor = Color.Gainsboro;
             this.Height = Screen.PrimaryScreen.WorkingArea.Height;
             this.Width = Screen.PrimaryScreen.WorkingArea.Width;
             this.Location = Screen.PrimaryScreen.WorkingArea.Location;
@@ -684,7 +676,6 @@ namespace AFSOfficeManagementSystem
                                                                             p.branch_id = b.branch_id
                                                                         WHERE
                                                                             p.is_deleted = 0;");
-            tblPurchaseOrder.ClearSelection();
         }
 
         public void loadBranData()
@@ -712,7 +703,6 @@ namespace AFSOfficeManagementSystem
                                                                         br.employee_id = e.employee_id
                                                                     WHERE
                                                                         br.is_deleted = 0;");
-            dataGridView7.ClearSelection();
         }
         public void loadSuppData()
         {
@@ -726,7 +716,6 @@ namespace AFSOfficeManagementSystem
                                                                     WHERE
                                                                         is_deleted = 0;");
 
-            dataGridView8.ClearSelection();
         }
         public void loadVouchData()
         {
@@ -747,7 +736,6 @@ namespace AFSOfficeManagementSystem
                                                                     WHERE
                                                                         v.is_deleted = 0;");
 
-            dataGridView10.ClearSelection();
         }
         public void loadEmpData()
         {
@@ -768,7 +756,6 @@ namespace AFSOfficeManagementSystem
                                                                         p.position_id = e.employee_pos_id
                                                                     WHERE
                                                                         e.is_deleted = 0;");
-            dataGridView6.ClearSelection();
 
         }
         public static int MondaysInMonth(DateTime thisMonth)
@@ -974,83 +961,24 @@ namespace AFSOfficeManagementSystem
         private void DataGridView_DataBindingComplete(object sender, DataGridViewBindingCompleteEventArgs e)
         {
             DataGridView table = (DataGridView)sender;
-            if (table.Name == "tblExpenses")
+            table.ClearSelection();
+            if (table.Name == "tblPurchaseOrder")
             {
-                table.ClearSelection();
-            } 
-                
-            else if (table.Name == "tblPurchaseOrder")
-            {
-                table.ClearSelection();
-            }
-            else if (table.Name == "tblCategory")
-            {
-                table.ClearSelection();
-            }
-            else if (table.Name == "dataGridView5")
-            {
-                table.ClearSelection();
-            }
-            else if (table.Name == "dataGridView3")
-            {
-                table.ClearSelection();
-            }
-            else if (table.Name == "dataGridView4")
-            {
-                table.ClearSelection();
-            }
-            else if (table.Name == "dataGridView2")
-            {
-                table.ClearSelection();
-            }
-            else if (table.Name == "dataGridView1")
-            {
-                table.ClearSelection();
-            }
-            else if (table.Name == "dataGridView6")
-            {
-                table.ClearSelection();
-            }
-            else if (table.Name == "dataGridView8")
-            {
-                table.ClearSelection();
-            }
-            else if (table.Name == "dataGridView10")
-            {
-                table.ClearSelection();
-            }
-            else if (table.Name == "dataGridView7")
-            {
-                table.ClearSelection();
-            }
-        }
-
-        private void tblPurchaseOrder_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
-        {
-
-            foreach (DataGridViewRow row in tblPurchaseOrder.Rows)
-            {
-                row.DefaultCellStyle.BackColor = Color.FromArgb(42, 222, 114);
-
-                if (Convert.ToString(row.Cells["STATUS"].Value) == "Paid")
+                table.ColumnHeadersDefaultCellStyle.Font = new Font(table.Font, FontStyle.Bold);
+                foreach (DataGridViewRow row in table.Rows)
                 {
                     row.DefaultCellStyle.BackColor = Color.FromArgb(42, 222, 114);
-                }
-                else
-                {
-                    row.DefaultCellStyle.BackColor = Color.FromArgb(255, 41, 41);
+
+                    if (Convert.ToString(row.Cells["STATUS"].Value) == "Paid")
+                    {
+                        row.DefaultCellStyle.BackColor = Color.LightGreen;
+                    }
+                    else
+                    {
+                        row.DefaultCellStyle.BackColor = Color.Salmon;
+                    }
                 }
             }
-            //if(tblPurchaseOrder.Rows(e.RowIndex).Cells("LevelID").Value.ToString() = "6")
-            //    e.CellStyle.BackColor = Color.DimGray
-            //for (int iCount = 0; iCount < tblPurchaseOrder.Rows.Count - 1; iCount++)
-            //{
-            //    if (Convert.ToString(tblPurchaseOrder.Rows[iCount].Cells[5].Value) == "Paid")
-            //        tblPurchaseOrder.Rows[iCount].DefaultCellStyle.BackColor = Color.FromArgb(42, 222, 114);
-            //    else
-            //        tblPurchaseOrder.Rows[iCount].DefaultCellStyle.BackColor = Color.FromArgb(255, 41, 41);
-
-            //}
         }
     }
 }
